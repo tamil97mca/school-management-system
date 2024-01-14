@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
 
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'https://couch-express-api.onrender.com';
   loginSubject = new BehaviorSubject<any>(this.getUser());
 
   constructor(private http: HttpClient) { }
@@ -22,47 +22,47 @@ export class ApiService {
   }
 
   findAll() {
-    const httpRequest = this.http.get("http://localhost:3000"+"/all-docs");
+    const httpRequest = this.http.get("https://couch-express-api.onrender.com"+"/all-docs");
     return this.promiseMethod(httpRequest);
   }
 
   findOne(id: string) {
-    const httpRequest = this.http.get("http://localhost:3000" + "/findone" + "/" + id);
+    const httpRequest = this.http.get("https://couch-express-api.onrender.com" + "/findone" + "/" + id);
     return this.promiseMethod(httpRequest);
   }
 
   login(credentials: any) {
-    const httpRequest = this.http.post("http://localhost:3000"+"/login", credentials);
+    const httpRequest = this.http.post("https://couch-express-api.onrender.com"+"/login", credentials);
     return this.promiseMethod(httpRequest);
   }
 
   register(credentials: any) {
-    const httpRequest = this.http.post("http://localhost:3000"+"/register", credentials);
+    const httpRequest = this.http.post("https://couch-express-api.onrender.com"+"/register", credentials);
     return this.promiseMethod(httpRequest);
   }
 
   findByCriteria(criteria: any) {
-    const httpRequest = this.http.post("http://localhost:3000/find", criteria);
+    const httpRequest = this.http.post("https://couch-express-api.onrender.com/find", criteria);
     return this.promiseMethod(httpRequest);
   }
 
   save(data: any) {
-    const httpRequest = this.http.post("http://localhost:3000"+"/insert-single", data);
+    const httpRequest = this.http.post("https://couch-express-api.onrender.com"+"/insert-single", data);
     return this.promiseMethod(httpRequest);
   }
 
   bulkSave(data: any) {
-    const httpRequest = this.http.post("http://localhost:3000"+"/insert-bulk", data);
+    const httpRequest = this.http.post("https://couch-express-api.onrender.com"+"/insert-bulk", data);
     return this.promiseMethod(httpRequest);
   }
 
   deleteOne(id: string, rev: string) {
-    const httpRequest = this.http.delete("http://localhost:3000" + "/delete/" + id + "?rev=" + rev);
+    const httpRequest = this.http.delete("https://couch-express-api.onrender.com" + "/delete/" + id + "?rev=" + rev);
     return this.promiseMethod(httpRequest);
   }
 
   updateOne(id: string, data: any) {
-    const httpRequest = this.http.put("http://localhost:3000" + "/update/" + id, data);
+    const httpRequest = this.http.put("https://couch-express-api.onrender.com" + "/update/" + id, data);
     return this.promiseMethod(httpRequest);
   }
 

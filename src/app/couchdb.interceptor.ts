@@ -15,7 +15,7 @@ export class CouchdbInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.includes('http://localhost:3000')) {
+    if (req.url.includes('https://couch-express-api.onrender.com')) {
 
       let token = localStorage.getItem('token') || '';
 

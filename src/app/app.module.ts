@@ -46,8 +46,8 @@ import { CouchdbInterceptor } from './couchdb.interceptor';
         tokenGetter: () => {
           return localStorage.getItem('token') || '';
         },
-        allowedDomains: ['http://localhost:3000'],
-        disallowedRoutes: ['http://localhost:3000/login'],
+        allowedDomains: ['https://couch-express-api.onrender.com'],
+        disallowedRoutes: ['https://couch-express-api.onrender.com/login'],
       },
     }),
 
