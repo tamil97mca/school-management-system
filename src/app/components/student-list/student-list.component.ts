@@ -172,7 +172,7 @@ export class StudentListComponent {
       enablePagination: true,
       pagination: {
         pageSizes: [5, 10, 15, 20, 25, 50, 75, 100, 200, 1000, 2000],
-        pageSize: 10
+        pageSize: 100
       },
       asyncEditorLoading: true,
       enableCellNavigation: true,

@@ -21,7 +21,7 @@ export function customDataFormatter(row: number, cell: number, value: any, colum
     if (dataContext['_attachments'] && dataContext['_attachments']['image']['data']) {
       return outPutTag += `<img src="data:image/png;base64,${dataContext['_attachments']['image']['data']}" width="30px" height="30px" style="border-radius: 50%"/>`;
     } else {
-      return outPutTag += `<img src="assets/img/user_icon.png" width="30px" height="30px" style="border-radius: 50%"/>`;
+      return outPutTag += `<img src="../../assets/images/user_icon.png" width="30px" height="30px" style="border-radius: 50%"/>`;
     }
   } else if (columnDef?.field === "gender") {
     return outPutTag += `<span><i class="${value === 'male' ? 'fa fa-male' : 'fa fa-female'}" style="${value === 'male' ? 'color: #2196F3;' : 'color: red;'}" aria-hidden="true"></i>&nbsp; ${value}</span>`
