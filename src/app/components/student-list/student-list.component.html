@@ -1,0 +1,78 @@
+<section class="container">
+
+  <h5>Student List</h5>
+  <div class="row mb-2 align-items-center">
+
+    <div class="col-auto">
+      <label for="type">Type</label>
+      <select [(ngModel)]="selectedType" (change)="applyFilters()" class="form-control" id="type">
+        <option value="" disabled>Select a type</option>
+        <option value="primary">Primary</option>
+        <option value="secondary">Secondary</option>
+        <option value="">clear</option>
+      </select>
+    </div>
+
+    <div class="col-auto">
+      <label for="year">Year</label>
+      <select [(ngModel)]="selectedYear" (change)="applyFilters()" class="form-control" id="year">
+        <option value="" disabled>Select a year</option>
+        <option value="KG">KG</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="">clear</option>
+      </select>
+    </div>
+
+    <div class="col-auto">
+      <label for="class">Class</label>
+      <select [(ngModel)]="selectedClass" (change)="applyFilters()" class="form-control" id="class">
+        <option value="" disabled>Select a class</option>
+        <option value="KG-A">KG-A</option>
+        <option value="KG-B">KG-B</option>
+        <option value="KG-C">KG-C</option>
+        <option value="Primary-A">Primary-A</option>
+        <option value="Primary-B">Primary-B</option>
+        <option value="Primary-C">Primary-C</option>
+        <option value="Primary-D">Primary-D</option>
+        <option value="Primary-E">Primary-E</option>
+        <option value="Secondary-A">Secondary-A</option>
+        <option value="Secondary-B">Secondary-B</option>
+        <option value="Secondary-C">Secondary-C</option>
+        <option value="Secondary-D">Secondary-D</option>
+        <option value="">clear</option>
+      </select>
+    </div>
+
+    <div class="col-auto ml-auto">
+      <button (click)="openDialog()" type="button" class="btn btn-primary btn-sm">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="col-auto">
+      <button (click)="onToggleFilter()" type="button" class="btn btn-primary btn-sm">
+        <span style="cursor: pointer;" title="Row filter"> <i class="fa fa-filter" aria-hidden="true"></i></span>
+      </button>
+    </div>
+  </div>
+
+</section>
+
+<section class="grid-section">
+
+  <div class="card">
+    <div class="card-body">
+      <angular-slickgrid gridId="grid1" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
+        [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)" (onCellChange)="onCellChanged($event)">
+      </angular-slickgrid>
+    </div>
+  </div>
+</section>
