@@ -21,6 +21,8 @@ import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { CouchdbInterceptor } from './couchdb.interceptor';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { CouchdbInterceptor } from './couchdb.interceptor';
     StudentEntryModalComponent,
     StudentListComponent,
     LandingComponent,
-    LoginComponent
+    LoginComponent,
+    AboutUsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

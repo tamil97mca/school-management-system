@@ -3,3 +3,17 @@
   margin: auto;
   margin-top: 100px;
 }
+
+h1 {
+  color: #76B838;
+  font-size: x-large;
+}
+
+.submit {
+  background-color: #76B838 !important;
+  color: white;
+}
+
+.btn-link {
+  color: #76B838;
+}

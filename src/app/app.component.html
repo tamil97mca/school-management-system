@@ -1,7 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light navbar-custom mb-3">
-  <a class="navbar-brand">
-    <i class="fa fa-graduation-cap" aria-hidden="true"></i> &nbsp;
-    School Management System
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom mb-3 sticky-top" style="background-color: #76B838;">
+  <a class="navbar-brand" routerLink="/">
+    <!-- <i class="fa fa-graduation-cap" aria-hidden="true"></i>  -->
+
+      <a class="navbar-brand bg-light rounded" href="#">
+        <img src="https://eblaerbil.com/wp-content/uploads/2023/07/Logo2.png" width="30" height="30" alt="">
+      </a>
+
+    &nbsp;
+    Ebla’s School
   </a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,35 +16,41 @@
 
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" (click)="closeNavbar('home')">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" (click)="closeNavbar('home')" routerLink="/home">
           <i class="fa fa-home" aria-hidden="true"></i> Home
         </a>
       </li>
 
-      <li class="nav-item active" *ngIf="this.userDetail?.role === 'admin' && layoutDetail !== 'student-list'">
-        <a class="nav-link" (click)="closeNavbar('student-list')">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" (click)="closeNavbar('aboutus')" routerLink="/aboutus">
+          <i class="fa fa-info" aria-hidden="true"></i> About Us
+        </a>
+      </li>
+
+      <li class="nav-item" *ngIf="userDetail?.role === 'admin' && layoutDetail !== 'student-list'" routerLinkActive="active">
+        <a class="nav-link" (click)="closeNavbar('student-list')" routerLink="/student-list">
           <i class="fa fa-list" aria-hidden="true"></i> Student List
         </a>
       </li>
 
-      <li class="nav-item" *ngIf="this.userDetail?.role === null" >
-        <a class="nav-link" (click)="closeNavbar('login'); ">
+      <li class="nav-item" *ngIf="!userDetail?.role" routerLinkActive="active">
+        <a class="nav-link" (click)="closeNavbar('login')" routerLink="/login">
           <i class="fa fa-sign-in" aria-hidden="true"></i> Login
         </a>
       </li>
 
-      <li class="nav-item" *ngIf="this.userDetail?.role === 'admin'">
-        <a class="nav-link" (click)="closeNavbar('logout')">
+      <li class="nav-item" *ngIf="userDetail?.role === 'admin'" routerLinkActive="active">
+        <a class="nav-link" (click)="closeNavbar('logout')" routerLink="/logout">
           <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
         </a>
       </li>
-
     </ul>
   </div>
 </nav>
 
 
+
+
+
 <router-outlet></router-outlet>
-
-

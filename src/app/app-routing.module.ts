@@ -6,10 +6,12 @@ import { LoginComponent } from './components/login/login.component';
 import { StudentListComponent } from './components/student-list/student-list.component';
 import { StudentDetailComponent } from './components/student-detail/student-detail.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'home', component: LandingComponent },
+  { path: 'aboutus', component: AboutUsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'student-list', component: StudentListComponent, canActivate: [AuthGuard] },
   { path: 'student-detail', component: StudentDetailComponent, canActivate: [AuthGuard] },

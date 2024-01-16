@@ -293,7 +293,7 @@ export class StudentListComponent {
         field: '_id',
         excludeFromHeaderMenu: true,
         formatter: Formatters.editIcon,
-        cssClass: "edit-icon",
+        cssClass: "custom-color-column",
         minWidth: 60,
         maxWidth: 60,
         onCellClick: (e: Event, args: OnEventArgs) => {
@@ -339,7 +339,7 @@ export class StudentListComponent {
         },
       },
       {
-        id: 'delete', name: 'Delete', field: '_id', excludeFromHeaderMenu: true, formatter: Formatters.deleteIcon, cssClass: "delete-icon",
+        id: 'delete', name: 'Delete', field: '_id', excludeFromHeaderMenu: true, formatter: Formatters.deleteIcon, cssClass: "custom-color-column",
         minWidth: 60, maxWidth: 60,
         onCellClick: (e: Event, args: OnEventArgs) => {
           console.log(args);
@@ -357,7 +357,7 @@ export class StudentListComponent {
         },
       },
       {
-        id: 'view', name: 'View', field: 'view', excludeFromHeaderMenu: true, formatter: customDataFormatter, cssClass: "view-icon",
+        id: 'view', name: 'View', field: 'view', excludeFromHeaderMenu: true, formatter: customDataFormatter, cssClass: "custom-color-column",
         minWidth: 60, maxWidth: 60,
         onCellClick: (e: Event, args: OnEventArgs) => {
           let viewData = { _id: args.dataContext.id, _rev: args.dataContext._rev }

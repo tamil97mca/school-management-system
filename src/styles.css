@@ -32,3 +32,7 @@ div.ms-drop {
   max-height: 150px !important;
   background-color: white !important;
 }
+/* Add a custom color to a specific column */
+.custom-color-column {
+  color: #76B838; /* Your custom color */
+}

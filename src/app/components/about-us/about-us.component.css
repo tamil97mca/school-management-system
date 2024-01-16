@@ -1,0 +1,31 @@
+body {
+  padding-top: 56px;
+}
+
+@media (min-width: 768px) {
+  body {
+      padding-top: 76px;
+  }
+}
+
+.logo {
+  max-width: 200px;
+  margin: auto;
+  display: block;
+}
+
+.quote {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  margin: 15px;
+  border: none;
+}
