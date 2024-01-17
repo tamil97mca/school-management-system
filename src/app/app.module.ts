@@ -23,6 +23,10 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { CouchdbInterceptor } from './couchdb.interceptor';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { environment } from 'src/environments/environment';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -50,13 +54,16 @@ import { FooterComponent } from './components/footer/footer.component';
         tokenGetter: () => {
           return localStorage.getItem('token') || '';
         },
-        allowedDomains: ['https://couch-express-api.onrender.com'],
-        disallowedRoutes: ['https://couch-express-api.onrender.com/login'],
+        allowedDomains: [environment.baseURL],
+        disallowedRoutes: [environment.baseURL+'/login'],
       },
     }),
 
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [RoutingService, ApiService, AuthService,
     {

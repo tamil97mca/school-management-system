@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/modals/login';
 import { Register } from 'src/app/modals/register';
@@ -19,7 +20,8 @@ export class LoginComponent {
   registerForm!: FormGroup;
   loginMode: boolean = true;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private apiService: ApiService, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private apiService: ApiService, private http: HttpClient,
+    private _snackBar: MatSnackBar) {
 
     this.loginForm = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
@@ -37,7 +39,9 @@ export class LoginComponent {
   register() {
     try {
       if (this.registerForm.invalid) {
-        alert("Please provide valid registration details");
+        this._snackBar.open('Please provide valid registration details', 'Ok', {
+          duration: 1000
+        });
         return;
       }
 
@@ -49,24 +53,35 @@ export class LoginComponent {
 
       this.authService.register(registerDTO).then((res: any) => {
         if (res.status === "success") {
-          alert("Registration successful");
+          this._snackBar.open('Registration successful', '', {
+            duration: 1000
+          });
           this.toggleLoginMode();
         } else {
-          alert("Registration failed");
+          this._snackBar.open('Registration failed', '', {
+            duration: 1000
+          });
         }
       }, () => {
-        alert("Something went wrong during registration");
+        this._snackBar.open('Something went wrong during registration', '', {
+          duration: 1000
+        });
       });
 
     } catch (err) {
       console.error("error", err);
+      this._snackBar.open('Something went wrong during registration', '', {
+        duration: 1000
+      });
     }
   }
 
   login() {
     try {
       if (this.loginForm.invalid) {
-        alert("Please provide valid email and password");
+        this._snackBar.open('Please provide valid email and password', 'Ok', {
+          duration: 1000
+        });
         return;
       }
 
@@ -74,7 +89,9 @@ export class LoginComponent {
 
       this.authService.login(loginDTO).then((res: any) => {
         if (res.status === "failed") {
-          alert("Invalid Email or Password");
+          this._snackBar.open('Invalid Email or Password', 'Ok', {
+            duration: 1000
+          });
           return;
         }
 
@@ -89,13 +106,20 @@ export class LoginComponent {
           localStorage.setItem("LOGGED_IN_USER", JSON.stringify(user));
           this.apiService.loginSubject.next(user);
           this.router.navigate(["/student-list"]);
+          this._snackBar.open('Login success', '', {
+            duration: 1000
+          });
         }
       }, () => {
-        alert("Something went wrong");
+        this._snackBar.open('Something went wrong', '', {
+          duration: 1000
+        });
       });
 
     } catch (err) {
-      console.error("error", err);
+      this._snackBar.open('Something went wrong', '', {
+        duration: 1000
+      });
     }
   }
 

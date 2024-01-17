@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
 
-  private baseUrl = 'https://couch-express-api.onrender.com';
+  private baseUrl = 'http://localhost:3000';
   loginSubject = new BehaviorSubject<any>(this.getUser());
 
   constructor(private http: HttpClient) { }
@@ -22,47 +22,47 @@ export class ApiService {
   }
 
   findAll() {
-    const httpRequest = this.http.get("https://couch-express-api.onrender.com"+"/all-docs");
+    const httpRequest = this.http.get(environment.baseURL+"/all-docs");
     return this.promiseMethod(httpRequest);
   }
 
   findOne(id: string) {
-    const httpRequest = this.http.get("https://couch-express-api.onrender.com" + "/findone" + "/" + id);
+    const httpRequest = this.http.get(environment.baseURL + "/findone" + "/" + id);
     return this.promiseMethod(httpRequest);
   }
 
   login(credentials: any) {
-    const httpRequest = this.http.post("https://couch-express-api.onrender.com"+"/login", credentials);
+    const httpRequest = this.http.post(environment.baseURL+"/login", credentials);
     return this.promiseMethod(httpRequest);
   }
 
   register(credentials: any) {
-    const httpRequest = this.http.post("https://couch-express-api.onrender.com"+"/register", credentials);
+    const httpRequest = this.http.post(environment.baseURL+"/register", credentials);
     return this.promiseMethod(httpRequest);
   }
 
   findByCriteria(criteria: any) {
-    const httpRequest = this.http.post("https://couch-express-api.onrender.com/find", criteria);
+    const httpRequest = this.http.post("http://localhost:3000/find", criteria);
     return this.promiseMethod(httpRequest);
   }
 
   save(data: any) {
-    const httpRequest = this.http.post("https://couch-express-api.onrender.com"+"/insert-single", data);
+    const httpRequest = this.http.post(environment.baseURL+"/insert-single", data);
     return this.promiseMethod(httpRequest);
   }
 
   bulkSave(data: any) {
-    const httpRequest = this.http.post("https://couch-express-api.onrender.com"+"/insert-bulk", data);
+    const httpRequest = this.http.post(environment.baseURL+"/insert-bulk", data);
     return this.promiseMethod(httpRequest);
   }
 
   deleteOne(id: string, rev: string) {
-    const httpRequest = this.http.delete("https://couch-express-api.onrender.com" + "/delete/" + id + "?rev=" + rev);
+    const httpRequest = this.http.delete(environment.baseURL + "/delete/" + id + "?rev=" + rev);
     return this.promiseMethod(httpRequest);
   }
 
   updateOne(id: string, data: any) {
-    const httpRequest = this.http.put("https://couch-express-api.onrender.com" + "/update/" + id, data);
+    const httpRequest = this.http.put(environment.baseURL + "/update/" + id, data);
     return this.promiseMethod(httpRequest);
   }
 

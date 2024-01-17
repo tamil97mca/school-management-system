@@ -8,7 +8,13 @@ import { RoutingService } from 'src/app/services/routing.service';
 })
 export class LandingComponent {
 
-  constructor(private routeService: RoutingService) {}
+  constructor(private routeService: RoutingService) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    })
+  }
 
   gotoLoginPage() {
     this.routeService.layoutNavigation('login');

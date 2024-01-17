@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { customDataFormatter } from 'src/app/formatter/customdataformatter';
 import Swal from 'sweetalert2';
 import { RoutingService } from 'src/app/services/routing.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-student-list',
@@ -40,7 +41,8 @@ export class StudentListComponent {
 
 
   constructor(public dialog: MatDialog, public http: HttpClient, private apiService: ApiService,
-    private router: Router, public activatRoute: ActivatedRoute, private routeService: RoutingService) {
+    private router: Router, public activatRoute: ActivatedRoute, private routeService: RoutingService,
+    private _snackBar: MatSnackBar) {
 
 
     this.initializeGrid();
@@ -125,7 +127,7 @@ export class StudentListComponent {
       emptyDataWarning: {
         message: 'There is no data to display.',
       },
-      enableCheckboxSelector: true,
+      enableCheckboxSelector: false,
       enableRowSelection: false,
       enableAutoResize: false,
       enableSorting: true,
@@ -208,31 +210,34 @@ export class StudentListComponent {
     }
   }
 
-  onCellChanged(event: any) {
+  async onCellChanged(event: any) {
     console.log(event);
 
     let id = event.detail.args.item.id;
     let item = event.detail.args.item;
-    this.apiService.updateOne(id, item).then((result: any) => {
-      console.log("Update successfully...", result);
+    // this.apiService.updateOne(id, item).then((result: any) => {});
 
-      if (item['_rev']) {
-        item['_rev'] = result['rev'];
-      }
-      const dataView = event.detail.args.grid.getData();
-      if (dataView) {
-        dataView.beginUpdate();
-        const value = dataView.getItemById(item['id'])
-        if (value) {
-          dataView.updateItem(item['id'], item);
-        } else {
-          dataView.addItem(item);
-        }
-        dataView.endUpdate();
-        dataView.reSort();
-      }
-
+    const result: any = await this.apiService.updateOne(id, item);
+    console.log("Update successfully...", result);
+    this._snackBar.open('Update successfully...', 'Ok', {
+      duration: 2000
     });
+
+    if (item['_rev']) {
+      item['_rev'] = result['rev'];
+    }
+    const dataView = event.detail.args.grid.getData();
+    if (dataView) {
+      dataView.beginUpdate();
+      const value = dataView.getItemById(item['id'])
+      if (value) {
+        dataView.updateItem(item['id'], item);
+      } else {
+        dataView.addItem(item);
+      }
+      dataView.endUpdate();
+      dataView.reSort();
+    }
   }
 
   onRecordEdit() {
@@ -306,12 +311,12 @@ export class StudentListComponent {
             maxHeight: '80vh',
           });
 
-          dialogRef.afterClosed().subscribe(result => {
+          dialogRef.afterClosed().subscribe(async result => {
             console.log(`Dialog result: ${result}`);
             if (result?.status === "success" && result?.records?.result?.ok === true) {
               let updatedId = result?.records?.result?.id;
-              this.apiService.findOne(updatedId).then((updatedRecord: any) => {
-
+                // this.apiService.findOne(updatedId).then((updatedRecord: any) => {})
+                const updatedRecord: any = await this.apiService.findOne(updatedId);
                 if (this.angularGrid && updatedRecord && updatedRecord?.records && Object.keys(updatedRecord?.records)) {
                   let newData: any = {};
                   newData = updatedRecord?.records;
@@ -330,10 +335,11 @@ export class StudentListComponent {
                     this.angularGrid.resizerService.resizeGrid();
                     this.angularGrid.slickGrid.render();
                     this.angularGrid.paginationService.changeItemPerPage(this.angularGrid.paginationService.itemsPerPage);
-                  }, 100);
+                    this._snackBar.open('Update successfully...', 'Ok', {
+                      duration: 1000
+                    });
+                  }, 1000);
                 }
-
-              })
             }
           });
         },
@@ -348,6 +354,9 @@ export class StudentListComponent {
             this.angularGrid.gridService.deleteItemById(args.dataContext.id);
             this.apiService.deleteOne(args.dataContext.id, args.dataContext._rev).then((res: any) => {
               console.log('Record Deleted succuessfully...', res);
+              this._snackBar.open('Record Deleted succuessfully...', 'Ok', {
+                duration: 1000
+              });
               this.angularGrid.paginationService.changeItemPerPage(
                 this.angularGrid.paginationService.itemsPerPage
               );

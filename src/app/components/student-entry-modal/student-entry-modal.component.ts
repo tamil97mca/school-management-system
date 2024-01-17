@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Student } from 'src/app/modals/student';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-student-entry-modal',
@@ -29,7 +30,8 @@ export class StudentEntryModalComponent {
     public dialogRef: MatDialogRef<StudentEntryModalComponent>,
     public fb: FormBuilder, public http: HttpClient,
     public activatRoute: ActivatedRoute, private apiService: ApiService,
-    private router: Router) {
+    private router: Router,
+    private _snackBar: MatSnackBar) {
     this.activatRoute.paramMap.subscribe((params: ParamMap) => {
       const studentId = params.get('id');
 
@@ -148,27 +150,25 @@ export class StudentEntryModalComponent {
     }
   }
 
-  submit() {
+  async submit() {
 
     if (this.data && Object.keys(this.data).length > 0) {
       let profile = this.formGroup.value?.profileImage;
       this.formGroup.patchValue({ profileImage: null });
-      this.apiService.updateOne(this.data.id, this.formGroup.value).then((editResult: any) => {
-        console.log('Update result', editResult);
+      // this.apiService.updateOne(this.data.id, this.formGroup.value).then((editResult: any) => {});
+      const editResult: any = await this.apiService.updateOne(this.data.id, this.formGroup.value);
+      console.log('Update result', editResult);
 
-        if (editResult['status'] === 'success') {
-          let imgData = { _id: editResult.records.result.id, _rev: editResult.records.result.rev, image: profile }
-          this.apiService.updateImg(imgData).then((res: any) => {
-            console.log('Update image result', res);
-            this.dialogRef.close(editResult);
-          });
-        }
-
-
+      if (editResult['status'] === 'success') {
+        let imgData = { _id: editResult.records.result.id, _rev: editResult.records.result.rev, image: profile }
+        // this.apiService.updateImg(imgData).then((res: any) => {});
+        await this.apiService.updateImg(imgData);
         this.dialogRef.close(editResult);
-        this.formGroup.reset();
-      });
+      }
 
+
+      this.dialogRef.close(editResult);
+      this.formGroup.reset();
 
     } else {
       delete this.formGroup.value._id;
@@ -177,18 +177,20 @@ export class StudentEntryModalComponent {
       let profile = this.formGroup.value?.profileImage;
       this.formGroup.patchValue({ profileImage: null });
 
-      this.apiService.save(this.formGroup.value).then((saveResult: any) => {
-        console.log('Save result', saveResult);
+      // this.apiService.save(this.formGroup.value).then((saveResult: any) => {});
+      const saveResult: any = await this.apiService.save(this.formGroup.value);
+      console.log('Save result', saveResult);
 
-        if (saveResult['status'] === 'success') {
-          let imgData = { _id: saveResult.records.id, _rev: saveResult.records.rev, image: profile }
-          this.apiService.updateImg(imgData).then((res: any) => {
-            console.log('Update image result', res);
-          });
-        }
+      if (saveResult['status'] === 'success') {
+        let imgData = { _id: saveResult.records.id, _rev: saveResult.records.rev, image: profile }
+        // this.apiService.updateImg(imgData).then((res: any) => {});
+        await this.apiService.updateImg(imgData);
+      }
 
-        this.dialogRef.close(saveResult);
-        this.formGroup.reset();
+      this.dialogRef.close(saveResult);
+      this.formGroup.reset();
+      this._snackBar.open('Record saved successfully...', '', {
+        duration: 1000
       });
     }
   }

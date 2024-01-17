@@ -23,10 +23,12 @@ export class StudentDetailComponent {
       this.apiService.findOne(params?._id).then((studentData: any) => {
         console.log("student", studentData);
         this.studentDetail = studentData['records'];
-        this.attachment = this.studentDetail['_attachments'];
-        const incorrectBase64 = this.studentDetail['_attachments']['image']['data']
-        const base64Data = incorrectBase64.replace('dataimage/pngbase64', '');
-        this.imageUrl = 'data:image/png;base64,' + base64Data;
+        if (this.studentDetail['_attachments'] && this.studentDetail['_attachments']['image']) {
+          this.attachment = this.studentDetail['_attachments'];
+          const incorrectBase64 = this.studentDetail['_attachments']['image']['data']
+          const base64Data = incorrectBase64.replace('dataimage/pngbase64', '');
+          this.imageUrl = 'data:image/png;base64,' + base64Data;
+        }
       })
     })
   }

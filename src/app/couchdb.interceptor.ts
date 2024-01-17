@@ -8,6 +8,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class CouchdbInterceptor implements HttpInterceptor {
@@ -15,7 +16,7 @@ export class CouchdbInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.includes('https://couch-express-api.onrender.com')) {
+    if (req.url.includes(environment.baseURL)) {
 
       let token = localStorage.getItem('token') || '';
 

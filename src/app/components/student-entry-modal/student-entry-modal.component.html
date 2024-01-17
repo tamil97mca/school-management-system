@@ -62,7 +62,7 @@
             <option *ngIf="formGroup.controls['year'].value" value="KG-C">KG-C</option>
           </ng-container>
 
-          <ng-container *ngIf="formGroup.controls['type'].value === 'primary'">
+          <ng-container *ngIf="formGroup.controls['type'].value === 'primary' && !['KG'].includes(formGroup.controls['year'].value)">
             <option *ngIf="formGroup.controls['year'].value" value="Primary-A">Primary-A</option>
             <option *ngIf="formGroup.controls['year'].value" value="Primary-B">Primary-B</option>
             <option *ngIf="formGroup.controls['year'].value" value="Primary-C">Primary-C</option>
@@ -92,7 +92,7 @@
             <option *ngIf="formGroup.controls['year'].value" value="KG-C">KG-C</option>
           </ng-container>
 
-          <ng-container *ngIf="formGroup.controls['type'].value === 'primary'">
+          <ng-container *ngIf="formGroup.controls['type'].value === 'primary' && !['KG'].includes(formGroup.controls['year'].value)">
             <option *ngIf="formGroup.controls['year'].value" value="Primary-A">Primary-A</option>
             <option *ngIf="formGroup.controls['year'].value" value="Primary-B">Primary-B</option>
             <option *ngIf="formGroup.controls['year'].value" value="Primary-C">Primary-C</option>

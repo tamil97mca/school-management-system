@@ -28,7 +28,7 @@
         </a>
       </li>
 
-      <li class="nav-item" *ngIf="userDetail?.role === 'admin' && layoutDetail !== 'student-list'" routerLinkActive="active">
+      <li class="nav-item" *ngIf="userDetail?.role === 'admin'" routerLinkActive="active">
         <a class="nav-link" (click)="closeNavbar('student-list')" routerLink="/student-list">
           <i class="fa fa-list" aria-hidden="true"></i> Student List
         </a>

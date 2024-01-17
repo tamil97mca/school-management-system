@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  baseURL: "https://couch-express-api.onrender.com"
+  baseURL: "http://localhost:3000"
 };
